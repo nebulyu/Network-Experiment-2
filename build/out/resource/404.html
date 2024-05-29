@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>not found</title>
+    <style>input{opacity:0.6;}
+    </style>
+    <script>
+        let randomTimer
+    
+        function randomColor() {
+            const r = randomInt(255)
+            const g = randomInt(255)
+            const b = randomInt(255)
+            const c = `#${r.toString(16)}${g.toString(16)}${b.toString(16)}000`
+            return c.slice(0, 7)
+        }
+    
+        function randomInt(max) {
+            return Math.floor(Math.random() * max)
+        }
+    
+        function randomBgImg() {
+            clearInterval(randomTimer)
+            const el = document.createElement('div')
+            const deg = randomInt(360)
+            el.id = 'random-light-bg'
+            el.style.cssText = `
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            z-index:-99;
+            transition: 1s linear;`
+            el.style.backgroundImage =
+                `linear-gradient(${deg}deg, ${randomColor()} 0%, ${randomColor()} 100%)`
+            document.body.appendChild(el)
+            function setBg() {
+                const randomBg =
+                    `linear-gradient(${deg}deg, ${randomColor()} 0%, ${randomColor()} 100%)`
+                el.style.opacity = '.3'
+                setTimeout(() => {
+                    el.style.backgroundImage = randomBg
+                    el.style.opacity = '1'
+                }, 1000)
+            }
+            randomTimer = setInterval(setBg, 10000)
+        }
+        
+    </script>
+  </head>
+
+  <body>
+    <script>
+        randomBgImg();
+    </script>
+    <p>
+        走到不存在的地方啦
+    </p>
+</body>
+</html>
